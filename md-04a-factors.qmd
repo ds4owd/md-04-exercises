@@ -1,0 +1,67 @@
+---
+title: "Factors"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute:
+  warning: false
+editor_options: 
+  chunk_output_type: console
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+library(tidyverse)
+```
+
+# Import
+
+```{r}
+#| label: load-data
+sanitation <- read_csv("data/jmp_wld_sanitation_long.csv") 
+```
+
+# Transform
+
+```{r}
+levels_varname_short <- c("san_sm", "san_bas", "san_lim", "san_unimp", "san_od") 
+
+levels_varname_long <- c("safely managed sanitation services", 
+                         "basic sanitation services", 
+                         "limited sanitation services", 
+                         "unimproved sanitation facilities", 
+                         "no sanitation facilities")
+
+sanitation_lvl <- sanitation |> 
+  mutate(varname_long = factor(varname_long, levels = levels_varname_long),
+         varname_short = factor(varname_short, levels = levels_varname_short),
+         residence = factor(residence, levels = c("national", "rural", "urban"))
+         ) 
+```
+
+```{r}
+sanitation_uga <- sanitation_lvl |> 
+  filter(iso3 == "UGA",
+         year %in% c(2000, 2020), 
+         varname_short != "san_sm")
+```
+
+# Visualise
+
+```{r}
+
+ggplot(data = sanitation_uga,
+       mapping = aes(x = residence, 
+                     y = percent, 
+                     fill = varname_long)) +
+  geom_col() +
+  facet_wrap(~year) +
+  scale_fill_colorblind() +
+  geom_text(aes(label = round(percent, 1)), 
+            position = position_stack(vjust = 0.5),
+            size = 3,
+            color = "white") 
+
+```

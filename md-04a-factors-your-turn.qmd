@@ -1,0 +1,105 @@
+---
+title: "Factors"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute:
+  warning: false
+editor_options: 
+  chunk_output_type: console
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+library(tidyverse)
+```
+
+# Import
+
+```{r}
+waste <- read_csv("data/waste-city-level-sml.csv") 
+```
+
+# Explore
+
+1.  Run all code chunks above.
+
+2.  Use the `glimpse()` function to inspect the `waste` object.
+
+3.  What does the data cover? Briefly discuss with your room partner.
+
+```{r}
+glimpse(waste)
+```
+
+1.  Use the `count()` function to count the number of rows for each value of the `income_id` variable in `waste` object.
+
+2.  What do the four values of the `income_id` variable represent?
+
+```{r}
+waste |> 
+  count(income_id)
+```
+
+# Transform
+
+1.  Use the `c()` function to create a vector called `levels_income` with the following values: "HIC", "UMC", "LMC", "LIC".
+
+```{r}
+levels_income <- c("HIC", "UMC", "LMC", "LIC")
+```
+
+1.  Use the `mutate()` function to convert the `income_id` variable to a factor variable with the levels specified in the `levels_income` object.
+
+2.  Use the assignment operator (`<-`) to store the resulting data as a new object called `waste_lvl`.
+
+```{r}
+waste_lvl <- waste |> 
+  mutate(income_id = factor(income_id, levels = levels_income))
+```
+
+1.  Use the `count()` function to verify that the `income_id` variable is now a factor variable with the correct levels.
+
+```{r}
+waste_lvl |> 
+  count(income_id)
+```
+
+1.  Starting with `waste_lvl`, use the `mutate()` function to create a new variable called `generation_kg_capita` that contains the `generation_tons_year` variable divided by the `population` variable and multiplied with 1000.
+
+2.  Use the assignment operator (`<-`) to store the resulting data as a new object called `waste_capita`.
+
+```{r}
+waste_capita <- waste_lvl |> 
+  mutate(generation_kg_capita = generation_tons_year / population * 1000) 
+```
+
+# Visualise
+
+1.  Next to the code chunk option `#| eval:` change the value from false to true.
+
+2.  Run the code in the code-chunk below to create a boxplot of the `generation_kg_capita` variable by `income_id`.
+
+3.  What do you observe? Discuss with your room partner.
+
+```{r}
+#| eval: false
+ggplot(data = waste_capita,
+       mapping = aes(x = income_id, 
+                     y = generation_kg_capita, 
+                     color = income_id)) +
+  geom_boxplot(outlier.fill = NA) +
+  geom_jitter(width = 0.1, alpha = 0.3) +
+  scale_color_colorblind() +
+  labs(x = "Income group",
+       y = "Waste generation (tons per capita per year)")
+
+waste_capita |> View()
+
+```
+
+# Communicate
+
+1.  Let's render
