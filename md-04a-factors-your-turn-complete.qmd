@@ -23,7 +23,7 @@ library(ggthemes)
 # Import
 
 ```{r}
-waste <- read_csv("data/waste-city-level-sml.csv") 
+waste <- read_csv("data/processed/waste-city-level-sml.csv") 
 ```
 
 # Explore

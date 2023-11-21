@@ -55,12 +55,12 @@ jmp_wld_sanitation_long <- jmp_wld_sanitation |>
 
 # export data -------------------------------------------------------------
 
-write_rds(jmp_wld_sanitation_long, "data/jmp_wld_sanitation_long.rds")
-write_csv(jmp_wld_sanitation_long, "data/jmp_wld_sanitation_long.csv")
+write_rds(jmp_wld_sanitation_long, "data/processed/jmp_wld_sanitation_long.rds")
+write_csv(jmp_wld_sanitation_long, "data/processed/jmp_wld_sanitation_long.csv")
 
 # what a waste data -------------------------------------------------------
 
-waste <- read_csv("data/waste-city-level.csv")
+waste <- read_csv("data/raw/waste-city-level.csv")
 
 waste_sml <- waste |> 
   select(country = country_name, 
@@ -70,4 +70,4 @@ waste_sml <- waste |>
          generation_tons_year = total_msw_total_msw_generated_tons_year, 
          population = population_population_number_of_people) 
 
-write_csv(waste_sml, "data/waste-city-level-sml.csv")
+write_csv(waste_sml, "data/processed/waste-city-level-sml.csv")

@@ -1,0 +1,73 @@
+---
+title: "Data import"
+author: ""
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute:
+  warning: false
+editor_options: 
+  chunk_output_type: console
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+library(readr)
+library(readxl)
+library(dplyr)
+```
+
+## Import
+
+## Task 1: Import waste data as CSV
+
+1.  Run all code chunks above.
+2.  Use the `read_csv()` function to import the `waste-city-level.csv` file from the `data/raw` folder.
+3.  Assign the resulting data to an object called `waste`.
+
+```{r}
+
+```
+
+## Task 2: Import JMP data as CSV
+
+1.  Use the `read_csv()` function to import the `jmp_wld_sanitation_long.csv` file from the `data/processed` folder.
+2.  Assign the resulting data to an object called `san_csv`.
+
+```{r}
+
+```
+
+## Task 3: Import JMP data as RDS
+
+1.  Use the `read_rds()` function to import the `jmp_wld_sanitation_long.rds` file from the `data/processed` folder.
+2.  Assign the resulting data to an object called `san_rds`.
+
+```{r}
+
+```
+
+## Task 4: Compare CSV and RDS
+
+1.  Use the `glimpse()` function to inspect the `san_csv` and `san_rds` objects.
+2.  What is the difference between the two objects? Discuss with your room partner.
+
+```{r}
+
+```
+
+## Task 5: Use LLM for an explanation
+
+1.  Open <https://www.perplexity.ai/> in your browser and enter the following prompt:
+
+You are an experienced educator in teaching R to novice users without prior knowledge. Explain what the .rds format is and how it differs from the .csv file format. Avoid technical language.
+
+2.  Read the answer and ask the tool questions for clarification of something is unclear.
+
+3.  Share a link to your conversation here (see screenshot below):
+
+### Screenshot
+
+![](images/perplexity-share-conversation-link.png)

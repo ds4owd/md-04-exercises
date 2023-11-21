@@ -23,7 +23,7 @@ In this exercise we continue to work with the JMP WASH data. The data is availab
 
 ```{r}
 #| label: load-data
-sanitation <- read_csv("data/jmp_wld_sanitation_long.csv") 
+sanitation <- read_csv("data/processed/jmp_wld_sanitation_long.csv") 
 ```
 
 # Transform
