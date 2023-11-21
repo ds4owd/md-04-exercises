@@ -13,7 +13,8 @@ editor: visual
 
 ```{r}
 #| label: load-packages
-
+library(tidyverse)
+library(ggthemes)
 ```
 
 # Import
@@ -22,27 +23,43 @@ In this exercise we continue to work with the JMP WASH data. The data is availab
 
 ```{r}
 #| label: load-data
-
+sanitation <- read_csv("data/processed/jmp_wld_sanitation_long.csv") 
 ```
 
 # Transform
 
 ```{r}
 
+levels_varname_short <- c("san_od", "san_unimp", "san_lim", "san_bas", "san_sm")
 
+levels_varname_long <- c("no sanitation facilities", 
+                         "unimproved sanitation facilities", 
+                         "limited sanitation services", 
+                         "basic sanitation services", 
+                         "safely managed sanitation services")
+
+
+sanitation_lvl <- sanitation |> 
+  mutate(varname_long = factor(varname_long, levels = levels_varname_long),
+         varname_short = factor(varname_short, levels = levels_varname_short),
+         residence = factor(residence, levels = c("national", "rural", "urban"))
+         ) 
 ```
 
 This code is the solution for homework assignment 3b of module 3 using the example of Uganda.
 
 ```{r}
-
+sanitation_uga <- sanitation_lvl |> 
+  filter(iso3 == "UGA",
+         year %in% c(2000, 2020),
+         varname_short != "san_sm")
 
 ```
 
 # Visualize
 
 ```{r}
-#| eval: false
+
 ggplot(data = sanitation_uga,
        mapping = aes(x = residence, 
                      y = percent, 
