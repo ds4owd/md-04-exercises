@@ -35,7 +35,7 @@ waste <- read_csv("data/waste-city-level-sml.csv")
 3.  What does the data cover? Briefly discuss with your room partner.
 
 ```{r}
-
+glimpse(waste)
 ```
 
 1.  Use the `count()` function for the `waste` object to count the number of rows for each value of the `income_id` variable.
@@ -43,7 +43,8 @@ waste <- read_csv("data/waste-city-level-sml.csv")
 2.  What do the four values of the `income_id` variable represent?
 
 ```{r}
-
+waste |> 
+  count(income_id)
 ```
 
 # Transform
@@ -52,7 +53,7 @@ waste <- read_csv("data/waste-city-level-sml.csv")
 2.  Use the assignment operator (`<-`) to store the resulting vector as a new object called `levels_income`.
 
 ```{r}
-
+levels_income <- c("HIC", "UMC", "LMC", "LIC")
 ```
 
 1.  Use the `mutate()` function to convert the `income_id` variable to a factor variable with the levels specified in the `levels_income` object.
@@ -60,13 +61,15 @@ waste <- read_csv("data/waste-city-level-sml.csv")
 2.  Use the assignment operator (`<-`) to store the resulting data as a new object called `waste_lvl`.
 
 ```{r}
-
+waste_lvl <- waste |> 
+  mutate(income_id = factor(income_id, levels = levels_income))
 ```
 
 1.  Use the `count()` function to verify that the `income_id` variable is now a factor variable with the correct levels.
 
 ```{r}
-
+waste_lvl |> 
+  count(income_id)
 ```
 
 1.  Starting with `waste_lvl`, use the `mutate()` function to create a new variable called `generation_kg_capita` that contains the `generation_tons_year` variable divided by the `population` variable and multiplied with 1000.
@@ -74,7 +77,8 @@ waste <- read_csv("data/waste-city-level-sml.csv")
 2.  Use the assignment operator (`<-`) to store the resulting data as a new object called `waste_capita`.
 
 ```{r}
-
+waste_capita <- waste_lvl |> 
+  mutate(generation_kg_capita = generation_tons_year / population * 1000) 
 ```
 
 # Visualize
@@ -86,7 +90,7 @@ waste <- read_csv("data/waste-city-level-sml.csv")
 3.  What do you observe? Discuss with your room partner.
 
 ```{r}
-#| eval: false
+#| eval: true
 ggplot(data = waste_capita,
        mapping = aes(x = income_id, 
                      y = generation_kg_capita, 
