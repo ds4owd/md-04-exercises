@@ -18,12 +18,13 @@ codebook_wide <- read_csv("https://raw.githubusercontent.com/WASHNote/jmpwashdat
 
 ## define levels for varname_short
 
-levels_varname_short <- c("san_sm", "san_bas", "san_lim", "san_unimp", "san_od")  
-levels_varname_long <- c("safely managed sanitation services", 
-                         "basic sanitation services", 
-                         "limited sanitation services", 
+levels_varname_short <- c("san_od", "san_unimp", "san_lim", "san_bas", "san_sm")
+
+levels_varname_long <- c("no sanitation facilities", 
                          "unimproved sanitation facilities", 
-                         "no sanitation facilities")
+                         "limited sanitation services", 
+                         "basic sanitation services", 
+                         "safely managed sanitation services")
 ## transform data
 
 jmp_wld_sanitation_long <- jmp_wld_sanitation |> 
